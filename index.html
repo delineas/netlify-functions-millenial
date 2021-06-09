@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Envío modernete</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+  </head>
+  <body>
+    <div class="container">
+    <form id="millenial-form">
+      <div class="field">
+        <label class="label title" for="email">Tu email millenial</label>
+        <div class="control"></div>
+        <input
+          class="input" 
+          id="email"
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label class="label" for="body">Mensaje top:</label>
+        <div class="control">
+          <textarea class="textarea" id="body" name="body" cols="30" rows="10" required></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <button class="button is-link" id="submit-button">Give it to me!</button>
+        </div>
+      </div>
+
+    </form>
+    </div>
+
+    <script>
+      document.getElementById('millenial-form').addEventListener('submit', function(event) {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const request = new XMLHttpRequest()
+        var jsonData = {}
+
+        formData.forEach((value, key) => (jsonData[key] = value))
+        request.open("POST", "/.netlify/functions/send-mail")
+        request.send(JSON.stringify(jsonData))
+        alert("Enviado!")
+        event.target.reset()
+      });
+    </script>
+  </body>
+</html>
